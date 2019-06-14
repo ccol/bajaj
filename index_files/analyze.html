@@ -1,0 +1,51 @@
+
+<!-- saved from url=(0226)https://mu-pl.lemnisk.co/analyze/analyze.php?account_id=VIZVRM5459&URL=https%3A%2F%2Fwww.bajajfinserv.in%2F&referrer=&ts=&fp34=d93d0549d37e63ef40554fab7e5ebda6&param=e100&section=1&level=1&usertype=Unknown&cb=viz_5cc143042b707 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body onload="timeLoadImage();">
+		<div id="imageContainer"><img src="./vizury" width="1" height="1"></div>
+        <div id="logContainer"></div>
+		<script language="javascript" type="text/javascript">
+      
+			var beforeLoad = Math.round((new Date()).getTime());
+			var isLoadCalled = false;
+      		var csm = 5;
+      		var isFP = true;
+			
+			var doLog = false;
+ 			
+     		var loggerPixel = "<img src = 'https://mu-pl.lemnisk.co/analyze/log.php?account_id=VIZVRM5459&tpcns=viz_5cc143042b707"; // width=1 height=1 />      		
+			
+			function isCookieSet(){
+				var bool = false;
+			        var cookie=document.cookie;
+			        uid  = cookie.split('=');
+			        if(uid[1] !== undefined){ // check if the cookie is set
+			                bool = true;
+			        }
+			        return bool;
+			}
+			var varCookieSet = isCookieSet();
+			var cookiePresent = 'true';
+			var pixelContent = '<img src="https://sync.sharethis.com/vizury?uid=viz_5cc143042b707" width=1 height=1 />';
+			var scrPixelContent = '';
+			if( varCookieSet == true || cookiePresent == "true"){
+				if( varCookieSet == true ){
+					pixelContent = '<img src="https://sync.sharethis.com/vizury?uid=viz_5cc143042b707" width=1 height=1 />';
+					scrPixelContent = '';
+				}
+				document.getElementById("imageContainer").innerHTML = pixelContent;
+				document.write(scrPixelContent);
+			}
+
+
+			function timeLoadImage(){
+				isLoadCalled = true;
+				var afterLoad = Math.round((new Date()).getTime());
+				var finalLoadTime = (parseInt(afterLoad) - parseInt(beforeLoad))/1000;
+				if(doLog){
+					loggerPixel = loggerPixel + "&time="+finalLoadTime +"&cset="+varCookieSet+"' " + "width=1 height=1 />";
+					document.getElementById("logContainer").innerHTML = loggerPixel
+				}
+			}
+		</script>
+		
+ </body></html>
