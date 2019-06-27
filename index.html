@@ -9042,10 +9042,12 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
       _ol('create', 'd2cd7641900ec85e767ff5634238b41d', 
         {onError: function(e) {console.log(typeof e === 'string' ? e : e.message);}}, 
         function(ol) {
-			if(typeof myIS == 'object' && myIS.customerApi.getTid && myIS.customerApi.getTid != ''){
-				_ol('setTrackingId', myIS.customerApi.getTid, function(){
-					olSetup();
-				})
+			if(typeof myIS == 'object' && myIS.customerApi.getTid){
+				if(myIS.customerApi.getTid() != ''){
+					_ol('setTrackingId', myIS.customerApi.getTid(), function(){
+						olSetup();
+					})
+				}
 			}else{
 				olSetup();
 			}
