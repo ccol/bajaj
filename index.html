@@ -5724,7 +5724,7 @@ Become our <br> Partner</a>
 	    
 	</a></div><div id="productParent_div" class="hOurFinOfList_subBox slick-slide slick-active" style="width: 208px;" tabindex="-1" role="option" aria-describedby="slick-slide01" data-slick-index="1" aria-hidden="false">
  	
-			<a href="https://www.bajajfinserv.in/personal-loan" target="_blank" tabindex="0">
+			<a href="personal-loan-preapproved-loan-offer.html" target="_blank" tabindex="0">
 			
 				 <img alt="" src="data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAQAICRAEAOw==" data-blzsrc="/pl_icon_new_45px45px_14122017_pl.svg">
 			    
@@ -5753,7 +5753,7 @@ Become our <br> Partner</a>
 		</div> 
 	  
 	
-			<div href="personal-loan" target="_blank" onclick="allProductGtm(event,this);" class="hOurFinOfAppNow" title="Personal Loan">KNOW MORE</div>
+			<div target="_blank" href="personal-loan-preapproved-loan-offer.html" class="hOurFinOfAppNow" title="Personal Loan">KNOW MORE</div>
 			  
 	    
 	</a></div><div id="productParent_div" class="hOurFinOfList_subBox slick-slide slick-active" style="width: 208px;" tabindex="-1" role="option" aria-describedby="slick-slide02" data-slick-index="2" aria-hidden="false">
@@ -9038,38 +9038,54 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
     !function(o,t,h,e,r,l,v){!o[e]&&(o.OtherLevelsObject=e,l=o[e]=function(){l.q?l.q.push(arguments):l.apply(l,arguments)},l.q=[],v=t.createElement(h),v.async=!0,v.src=r,t=t.getElementsByTagName(h)[0],t.parentNode.insertBefore(v,t))}
     (window,document,"script","_ol","https://cdn.otherlevels.com/js-sdk/otherlevels.js?appKey=d2cd7641900ec85e767ff5634238b41d");
   
+	var olEmailIdValue;
     document.addEventListener('DOMContentLoaded', function () {
       _ol('create', 'd2cd7641900ec85e767ff5634238b41d', 
         {onError: function(e) {console.log(typeof e === 'string' ? e : e.message);}}, 
         function(ol) {
-			if(typeof myIS == 'object' && myIS.customerApi.getTid){
-				if(myIS.customerApi.getTid() != ''){
+			//there are many ways to achieve this logic, but doing it this way to keep it simple such that there is only one tag to be deployed on ALL PAGES in GTM.
+			if(location.href.indexOf('personal-loan-preapproved-loan-offer') > -1 && typeof document.getElementById("personal_emailid_emailidFalse") !== "undefined"){
+				//add an event listener to the email field, and on blur, so long as the value's not empty, update the trackingID
+				document.getElementById("personal_emailid_emailidFalse").addEventListener("blur", function(){
+					if(document.getElementById("personal_emailid_emailidFalse").value != ""){
+						_ol('setTrackingId', document.getElementById("personal_emailid_emailidFalse").value, function(){
+							console.log('OL trackingID updated to ' + document.getElementById("personal_emailid_emailidFalse").value);
+						})
+					}
+				});
+			}else{
+				if(typeof myIS == 'object' && myIS.customerApi.getTid && myIS.customerApi.getTid() != '' && myIS.customerApi.getTid() != 'undefined' && myIS.customerApi.getTid() != null && typeof myIS.customerApi.getTid() !== "undefined"){
+					console.log(typeof myIS.customerApi.getTid());
+					console.log(myIS.customerApi.getTid());
 					_ol('setTrackingId', myIS.customerApi.getTid(), function(){
 						olSetup();
 					})
+				}else{
+					olSetup();
 				}
-			}else{
-				olSetup();
 			}
         }
       );
     });
 
 	function olSetup(){
-		_ol('push.isSubscribed', function(isSubscribed) {
-            if (!isSubscribed) {
-              _ol('askForPermission', 'notification', function(subscribed) {
-                if(subscribed == 'subscribed'){
-                  _ol('registerEvent', 'softyes_hardallow', '', function() {});
-                  setTimeout(sendWelcomePush, 1000);
-                }else if(subscribed == 'notsubscribed'){
-                  _ol('registerEvent', 'softyes_hardblock', '', function() {});
-                }
-              });
-            }else{
-              _ol('push.subscribe', function(){}); //if they're already subscribed on this device, then resubscribe them to update the endpoint (useful if they've opted in to web push on multiple devices, this acts as a way to ensure they get web push on their most recently accessed device)
-            }
-          });
+		//for simple demo purposes, don't ask for opt-in on page where trackingID update may happen later
+		if(location.href.indexOf('personal-loan-preapproved-loan-offer') < 0){
+			_ol('push.isSubscribed', function(isSubscribed) {
+				if (!isSubscribed) {
+				_ol('askForPermission', 'notification', function(subscribed) {
+					if(subscribed == 'subscribed'){
+						_ol('registerEvent', 'softyes_hardallow', '', function() {});
+						setTimeout(sendWelcomePush, 1000);
+					}else if(subscribed == 'notsubscribed'){
+						_ol('registerEvent', 'softyes_hardblock', '', function() {});
+					}
+				});
+				}else{
+					_ol('push.subscribe', function(){}); //if they're already subscribed on this device, then resubscribe them to update the endpoint (useful if they've opted in to web push on multiple devices, this acts as a way to ensure they get web push on their most recently accessed device)
+				}
+			});
+		}
 	}
     function sendWelcomePush(){
     navigator.serviceWorker.ready.then(
@@ -9080,7 +9096,7 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
                 })
             }
         )
-    }
+	}
   </script>
 
 
