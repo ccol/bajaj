@@ -9034,6 +9034,7 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
 
 
 
+
 <script type="text/javascript">
     !function(o,t,h,e,r,l,v){!o[e]&&(o.OtherLevelsObject=e,l=o[e]=function(){l.q?l.q.push(arguments):l.apply(l,arguments)},l.q=[],v=t.createElement(h),v.async=!0,v.src=r,t=t.getElementsByTagName(h)[0],t.parentNode.insertBefore(v,t))}
     (window,document,"script","_ol","https://cdn.otherlevels.com/js-sdk/otherlevels.js?appKey=d2cd7641900ec85e767ff5634238b41d");
@@ -9050,6 +9051,7 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
 					if(document.getElementById("personal_emailid_emailidFalse").value != ""){
 						_ol('setTrackingId', document.getElementById("personal_emailid_emailidFalse").value, function(){
 							console.log('OL trackingID updated to ' + document.getElementById("personal_emailid_emailidFalse").value);
+							olSetup();
 						})
 					}
 				});
@@ -9069,23 +9071,20 @@ eventLabel:l.join(" \x3e ")}),dataLayer.push({event:"tvc_pstp_load",eventCategor
     });
 
 	function olSetup(){
-		//for simple demo purposes, don't ask for opt-in on page where trackingID update may happen later
-		if(location.href.indexOf('personal-loan-preapproved-loan-offer') < 0){
-			_ol('push.isSubscribed', function(isSubscribed) {
-				if (!isSubscribed) {
-				_ol('askForPermission', 'notification', function(subscribed) {
-					if(subscribed == 'subscribed'){
-						_ol('registerEvent', 'softyes_hardallow', '', function() {});
-						setTimeout(sendWelcomePush, 1000);
-					}else if(subscribed == 'notsubscribed'){
-						_ol('registerEvent', 'softyes_hardblock', '', function() {});
-					}
-				});
-				}else{
-					_ol('push.subscribe', function(){}); //if they're already subscribed on this device, then resubscribe them to update the endpoint (useful if they've opted in to web push on multiple devices, this acts as a way to ensure they get web push on their most recently accessed device)
+		_ol('push.isSubscribed', function(isSubscribed) {
+			if (!isSubscribed) {
+			_ol('askForPermission', 'notification', function(subscribed) {
+				if(subscribed == 'subscribed'){
+					_ol('registerEvent', 'softyes_hardallow', '', function() {});
+					setTimeout(sendWelcomePush, 1000);
+				}else if(subscribed == 'notsubscribed'){
+					_ol('registerEvent', 'softyes_hardblock', '', function() {});
 				}
 			});
-		}
+			}else{
+				_ol('push.subscribe', function(){}); //if they're already subscribed on this device, then resubscribe them to update the endpoint (useful if they've opted in to web push on multiple devices, this acts as a way to ensure they get web push on their most recently accessed device)
+			}
+		});
 	}
     function sendWelcomePush(){
     navigator.serviceWorker.ready.then(
